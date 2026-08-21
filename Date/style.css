@@ -1,6 +1,27 @@
-h1 {
-  text-align: center;
+.timer__content {
+  /* display: grid;
+  grid-template-columns: fit-content; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-size: 8rem;
   font-family: monospace;
+  gap: 15px;
 }
 
+.timer__separator {
+  display: flex;
+  align-self: stretch;
+  flex-direction: column;
+  gap: 15px;
+  justify-content: center;
+}
+
+.timer__separator::before,
+.timer__separator::after {
+  content: "";
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  background-color: currentColor;
+}

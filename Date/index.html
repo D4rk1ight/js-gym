@@ -3,14 +3,29 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="style.css" rel="stylesheet" />
+    <link href="./style.css" rel="stylesheet" />
     <script src="./script.js" defer></script>
     <title>Sample</title>
   </head>
   <body>
-    <button onclick="startTimer()">Сколько время?</button>
-    <h1></h1>
-    <button onclick="stopTimer()">Остановить</button>
+    <section class="timer">
+      <button onclick="startTimer()">Сколько время?</button>
+      <div class="timer__content">
+        <div class="timer__hours"></div>
+        <span class="timer__separator" aria-hidden="true"></span>
+
+        <div class="timer__minutes"></div>
+
+        <span class="timer__separator" aria-hidden="true"></span>
+
+        <div class="timer__seconds"></div>
+
+        <span class="timer__separator" aria-hidden="true"></span>
+
+        <div class="timer__milliseconds"></div>
+      </div>
+      <button onclick="stopTimer()">Остановить</button>
+    </section>
   </body>
   <script></script>
 </html>
