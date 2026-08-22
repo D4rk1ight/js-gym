@@ -11,7 +11,7 @@ const timeElement = [hours, minutes, seconds, millisecond];
 
 function handleButtonClick() {
   const userDate = new Date();
-  const userTime = userDate.toString().split(" ")[4];
+  // const userTime = userDate.toString().split(" ")[4];
   const userHours = userDate.getHours();
   const userMinutes = userDate.getMinutes();
   const userSeconds = userDate.getSeconds().toString().padStart(2, "0");
@@ -25,8 +25,6 @@ function handleButtonClick() {
   timeElement.forEach((element, index) => {
     element.innerText = timeValues[index];
   });
-
-  // title.innerText = `${userTime}:${userMillisecond}`;
 }
 
 let timerId;
@@ -34,15 +32,53 @@ let timerId;
 let isRunning = false;
 
 const startTimer = () => {
-  if (timerId !== undefined) return;
+  if (isRunning) return;
   isRunning = true;
   handleButtonClick();
   timerId = setInterval(handleButtonClick, 16.6);
 };
 
 const stopTimer = () => {
-  clearInterval(timerId);
-  timerId = undefined;
+  console.log(timerId);
+  timerId = clearInterval(timerId);
+  console.log(timerId);
+  isRunning = false;
 };
 
 // Данные, состояние, действие.
+
+class Timer {
+  constructor(rootElement) {
+    // console.log(rootElement);
+    this.hours = rootElement.querySelector(".timer__hours");
+    this.minutes = rootElement.querySelector(".timer__minutes");
+    this.seconds = rootElement.querySelector(".timer__seconds");
+    this.millisecond = rootElement.querySelector(".timer__milliseconds");
+    this.elements = [this.hours, this.minutes, this.seconds, this.millisecond];
+    // console.log(this.elements);
+
+    this.timerId = undefined;
+    this.isRunning = false;
+  }
+
+  update() {
+    const userDate = new Date();
+    const userHours = userDate.getHours();
+    const userMinutes = userDate.getMinutes().toString().padStart(2, "0");
+    const userSeconds = userDate.getSeconds().toString().padStart(2, "0");
+    const userMillisecond = userDate
+      .getMilliseconds()
+      .toString()
+      .padStart(3, "0");
+
+    const values = [userHours, userMinutes, userSeconds, userMillisecond];
+
+    this.elements.forEach((element, index) => {
+      element.innerText = values[index];
+    });
+  }
+}
+
+const timerInstance = new Timer(timer);
+
+console.log(timerInstance);
