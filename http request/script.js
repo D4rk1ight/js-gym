@@ -4,39 +4,29 @@ const input = document.querySelector("#userLink");
 
 const sentButton = document.querySelector("#sendButton");
 
+const img = document.querySelector("#outPutImg");
+
 const handleClick = () => {
   const inputValue = input.value;
-  getDate(inputValue);
+  getData(inputValue);
+  // printImage();
 };
 
 sentButton.addEventListener("click", handleClick);
 
-const getDate = async url => {
-  const response = await fetch(url);
-  const body = await response.text();
+const getData = async url => {
+  try {
+    const response = await fetch(url);
+    const blob = await response.blob();
+    const imageUrl = URL.createObjectURL(blob);
 
-  response
-    .then(response => {
-      console.log(response);
-    })
-    .catch(error => {
-      console.log(error);
-    })
-    .finally(() => {
-      console.log("The request has been received ");
-    });
+    console.log(response);
+    console.log(blob);
+
+    img.setAttribute("src", imageUrl);
+  } catch (error) {
+    console.log(error);
+  } finally {
+    console.log(`Запрос завершен`);
+  }
 };
-// const promise = fetch("./index.html");
-
-// const promise = fetch("https://www.youtube.com/feed/subscriptions");
-
-// promise
-//   .then(response => {
-//     console.log(response);
-//   })
-//   .catch(error => {
-//     console.error(error);
-//   })
-//   .finally(() => {
-//     console.log("Запрос завершен");
-//   });
