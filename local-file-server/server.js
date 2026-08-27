@@ -2,14 +2,28 @@
 
 const http = require("http");
 
-const server = http.createServer((req, res) => {
+const fs = require("fs");
+
+const server = http.createServer(handleRequest);
+
+server.listen(3000, "0.0.0.0", () => {
+  console.log("The server has been started");
+});
+
+function handleRequest(req, res) {
   res.writeHead(200, { "content-type": "text/plain; charset=utf-8" });
 
   res.end("Ты нереально крут 😎 \n Добро пожаловать в мир IT!");
 
-  // res.end("Welcome to the IT-club, buddy!");
+  res.writeHead(200, { "content-type": "image/gif" });
 
-  console.log(req.url);
-});
+  const steam = fs.createReadStream("./public/cat.gif");
 
-server.listen(3000, "0.0.0.0");
+  steam.pipe(res);
+
+  console.log(`request received`);
+  // console.log(req.method);
+  // console.log(req.url);
+  console.log(req.headers);
+  // console.log(req.socket.remoteAddress)
+}
