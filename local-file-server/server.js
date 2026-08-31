@@ -3,6 +3,7 @@
 const http = require("http");
 
 const fs = require("fs");
+// const { url } = require("inspector");
 
 const server = http.createServer(handleRequest);
 
@@ -11,36 +12,22 @@ server.listen(3000, "0.0.0.0", () => {
 });
 
 function handleRequest(req, res) {
+  console.log(`request received`);
+  console.log(req.url);
   if (req.url === "/") {
     res.writeHead(200, { "content-type": "text/html; charset=utf-8" });
-    const indexPage = fs.createReadStream("./public/index.html");
-    indexPage.pipe(res);
-    return;
-  }
-  if (req.url === "/files") {
-    getFiles("./public/files");
+    getFiles("./public/files", res);
     return;
   }
 
-  // res.writeHead(200, { "content-type": "text/plain; charset=utf-8" });
-
-  // res.end("Ты нереально крут 😎 \n Добро пожаловать в мир IT!");
-
-  // res.writeHead(200, { "content-type": "image/gif" });
-
-  // const steam = fs.createReadStream("./public/cat.gif");
-
-  // steam.pipe(res);
-
-  console.log(`request received`);
-  // console.log(req.method);
-  // console.log(req.url);
-  // console.log(req.headers);
-  // console.log(req.socket.remoteAddress)
+  if (req.url.startsWith("/files/")) {
+    res.end("test");
+    return;
+  }
 }
 
-function getFiles(path) {
-  fs.readdir(`.${path}`, (error, files) => {
+function getFiles(path, res) {
+  fs.readdir(`${path}`, (error, files) => {
     if (error) {
       console.error(error);
     }
@@ -48,14 +35,14 @@ function getFiles(path) {
 
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
-
-      linksHtml += `<a href=${path}/${file}> ${file}</a>`;
+      linksHtml += `<a href="/files/${file}" download> ${file}</a><br>`;
     }
+    res.end(linksHtml);
 
     // files.forEach(file => {
-    //   linksHtml += `<a href="${path}/${file}"> ${file} </a>\n`;
+    //   linksHtml += `<a href="${path}/${file}"> ${file} </a>`;
     // });
 
-    console.log(linksHtml);
+    // console.log(linksHtml);
   });
 }

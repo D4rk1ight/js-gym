@@ -25,3 +25,16 @@
   border-radius: 50%;
   background-color: currentColor;
 }
+
+.wheel {
+  overflow: hidden;
+  max-height: 90px;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+}
