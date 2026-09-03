@@ -1,0 +1,13 @@
+import time
+
+user_time = int(input("От скольки будем считать?"))
+
+
+def countdown(seconds):
+    for remaining in range(seconds, 0, -1):
+        print(remaining)
+        time.sleep(1)
+    print("Время вышло!")
+
+
+countdown(user_time)
