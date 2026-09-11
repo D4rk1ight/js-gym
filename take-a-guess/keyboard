@@ -1,0 +1,15 @@
+import keyboard
+
+
+def show_key(event):
+    print(vars(event))
+    # print("Клавиша нажата:" + event.name)
+    # print(event.time)
+    # print(event.device)
+    # print(event.event_type)
+    # print(dir(event))
+
+
+keyboard.on_press(show_key)
+
+keyboard.wait()
